@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('question_id')->constrained();
             $table->string('answer');
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
