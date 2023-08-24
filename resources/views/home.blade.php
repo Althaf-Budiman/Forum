@@ -50,8 +50,8 @@
                     @enderror
 
                     <div class="modal-action">
-                        <button type="submit" class="btn btn-outline btn-success">Add</button>
                         <label for="modal_add_question" class="btn btn-primary">Close!</label>
+                        <button type="submit" class="btn btn-outline btn-success">Add</button>
                     </div>
                 </form>
             </div>
