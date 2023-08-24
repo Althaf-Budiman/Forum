@@ -2,14 +2,14 @@
 @section('main')
     <div class="flex justify-center mt-6">
         {{-- card --}}
-        <form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('/register') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card card-compact w-fit bg-neutral shadow-xl flex items-center text-center">
                 <div class="card-body">
                     <h2 class="font-bold text-2xl">Register</h2>
 
-                    <label for="profile_photo" class="label">Upload Your Photo Profile</label>
-                    <input type="file" id="profile_photo" name="profile_photo" class="file-input file-input-primary">
+                    <label for="profile_photo_path" class="label">Upload Your Photo Profile</label>
+                    <input type="file" id="profile_photo_path" name="profile_photo_path" class="file-input file-input-primary">
                     @error('profile_photo')
                         <p class="text-red-600">{{ $message }}</p>
                     @enderror
@@ -44,12 +44,6 @@
                             {{ $message }}
                         </span>
                     @enderror
-                    <label class="label">
-                        <span class="label-text">Confirm Your Password</span>
-                    </label>
-                    <input type="password" name="password_confirmation" id="password_confirmation"
-                        placeholder="Input Password Confirmation Here"
-                        class="input input-bordered input-primary w-96 max-w-xs" />
 
 
                     <button type="submit" class="btn btn-outline btn-success mt-3">Register</button>

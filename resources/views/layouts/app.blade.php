@@ -18,8 +18,8 @@
         </div>
         <div class="navbar-end gap-2">
             @guest
-                <a class="btn btn-primary normal-case text-base">Register</a>
-                <a class="btn btn-secondary btn-outline normal-case text-base">Login</a>
+                <a href="{{ url('/register') }}" class="btn btn-primary normal-case text-base">Register</a>
+                <a href="{{ url('/login') }}" class="btn btn-secondary btn-outline normal-case text-base">Login</a>
             @else
                 <a class="btn btn-secondary btn-outline normal-case text-base">Logout</a>
             @endguest
