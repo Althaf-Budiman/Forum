@@ -31,4 +31,14 @@ class Vote extends Model
     {
         return $this->belongsTo(Answer::class);
     }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function comment()
+    {
+        return $this->belongsTo(Comment::class);
+    }
 }

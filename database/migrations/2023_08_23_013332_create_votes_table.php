@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('answer_id')->constrained();
+            // Pilih salah satu
+            $table->foreignId('answer_id')->nullable()->constrained();
+            $table->foreignId('question_id')->nullable()->constrained();
+            $table->foreignId('comment_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
