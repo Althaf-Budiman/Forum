@@ -27,8 +27,10 @@ class AuthenticationController extends Controller
             'password' => 'required',
         ]);
 
-        $file_name = $request->profile_photo_path->getClientOriginalName();
-        $profile_photo_path = $request->profile_photo_path->storeAs('profile-photos', $file_name);
+        // Upload Gambar
+        if ($request->hasFile('profile_photo_path')) {
+            $profile_photo_path = $request->file('profile_photo_path')->store('profile-photos');
+        }
 
         $user = User::create([
             'profile_photo_path' => $profile_photo_path,
