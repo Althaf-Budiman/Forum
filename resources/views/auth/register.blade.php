@@ -19,7 +19,7 @@
                     </label>
                     <input type="text" name="name" id="name" placeholder="Input Your Name Here"
                         class="input input-bordered input-primary w-96 max-w-xs" value="{{ old('name') }}" />
-                    @error('email')
+                    @error('name')
                         <span class="text-red-500">
                             {{ $message }}
                         </span>

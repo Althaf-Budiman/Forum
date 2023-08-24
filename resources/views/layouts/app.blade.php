@@ -21,7 +21,11 @@
                 <a href="{{ url('/register') }}" class="btn btn-primary normal-case text-base">Register</a>
                 <a href="{{ url('/login') }}" class="btn btn-secondary btn-outline normal-case text-base">Login</a>
             @else
-                <a class="btn btn-secondary btn-outline normal-case text-base">Logout</a>
+                <button class="btn btn-secondary btn-outline normal-case text-base"
+                    onclick="document.getElementById('logout').submit()">Logout</button>
+                <form action="{{ url('/logout') }}" method="post" id="logout">
+                    @csrf
+                </form>
             @endguest
         </div>
     </div>
