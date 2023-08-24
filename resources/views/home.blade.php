@@ -11,6 +11,7 @@
         <div class="modal">
             <div class="modal-box">
                 <form action="{{ url('/question') }}" method="post">
+                    @csrf
                     <h3 class="font-bold text-lg">Ask a question!</h3>
 
                     <label class="label" for="title">
@@ -60,41 +61,42 @@
         {{-- End modal add question --}}
 
         {{-- Questions --}}
-        <div class="flex w-8/12 bg-gray-700 p-3 mt-3">
-            <div class="flex w-full justify-evenly">
-                {{-- Upvote Downvote --}}
-                <div class="flex flex-col items-center">
-                    <i class="bi bi-caret-up"></i>
-                    <p class="leading-[48px]">0</p>
-                    <i class="bi bi-caret-down"></i>
-                </div>
-
-                {{-- Answer Count --}}
-                <div class="flex flex-col">
-                    <p class="leading-[96px]">0 answer</p>
-                </div>
-
-                {{-- Question Title And Kategori--}}
-                <div class="flex flex-col">
-                    <div class="w-80 whitespace-nowrap text-ellipsis overflow-hidden">
-                        <a href="#"
-                        class="text-lg font-semibold text-white underline leading-[48px]">question</a>
+        @foreach ($questions as $question)
+            <div class="flex w-8/12 bg-gray-700 p-3 mt-3">
+                <div class="flex w-full justify-evenly">
+                    {{-- Upvote Downvote --}}
+                    <div class="flex flex-col items-center">
+                        <i class="bi bi-caret-up"></i>
+                        <p class="leading-[48px]">0</p>
+                        <i class="bi bi-caret-down"></i>
                     </div>
-                    <p>Kategori</p>
-                </div>
 
-                {{-- Questioner avatar and name --}}
-                <div class="flex mt-12">
-                    <div class="avatar">
-                        <div class="w-10 h-10 rounded-full">
-                            <img class="w-full" src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"
-                                alt="user avatar questioner">
+                    {{-- Answer Count --}}
+                    <div class="flex flex-col">
+                        <p class="leading-[96px]">0 answer</p>
+                    </div>
+
+                    {{-- Question Title And Kategori --}}
+                    <div class="flex flex-col">
+                        <div class="w-80 whitespace-nowrap text-ellipsis overflow-hidden">
+                            <a href="#" class="text-lg font-semibold text-white underline leading-[48px]">{{ $question->title }}</a>
                         </div>
+                        <span class="badge">{{ $question->category }}</span>
                     </div>
-                    <p class="leading-[48px] ml-3">{{ Auth::user()->name }}</p>
+
+                    {{-- Questioner avatar and name --}}
+                    <div class="flex mt-12">
+                        <div class="avatar">
+                            <div class="w-10 h-10 rounded-full">
+                                <img class="w-full" src="{{ asset('storage/' . $question->user->profile_photo_path) }}"
+                                    alt="user avatar questioner">
+                            </div>
+                        </div>
+                        <p class="leading-[48px] ml-3">{{ $question->user->name }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        {{-- End Of Questions --}}
+            {{-- End Of Questions --}}
+        @endforeach
     </div>
 @endsection
