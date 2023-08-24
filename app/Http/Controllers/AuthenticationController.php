@@ -21,7 +21,7 @@ class AuthenticationController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'profile_photo_path' => 'required|image|mimes:png,jpg',
+            'profile_photo_path' => 'image|mimes:png,jpg',
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
@@ -30,6 +30,8 @@ class AuthenticationController extends Controller
         // Upload Gambar
         if ($request->hasFile('profile_photo_path')) {
             $profile_photo_path = $request->file('profile_photo_path')->store('profile-photos');
+        } else {
+            $profile_photo_path = 'profile-photos/default-profile-photo.png';
         }
 
         $user = User::create([
