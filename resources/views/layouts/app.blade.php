@@ -14,7 +14,7 @@
 <body>
     <div class="navbar bg-base-100 border-b border-b-gray-700">
         <div class="navbar-start">
-            <a class="btn btn-ghost normal-case text-xl">Forum</a>
+            <a href="{{ url('/') }}" class="btn btn-ghost normal-case text-xl">Forum</a>
         </div>
         <div class="navbar-end gap-2">
             @guest
