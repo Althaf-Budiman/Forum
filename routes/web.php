@@ -21,7 +21,7 @@ Route::get('/', [HomeController::class, 'home']);
 // Authentication
 Route::get('/register', [AuthenticationController::class, 'registerView']);
 
-Route::get('/login', [AuthenticationController::class, 'loginView']);
+Route::get('/login', [AuthenticationController::class, 'loginView'])->name('login');
 
 Route::post('/register', [AuthenticationController::class, 'register']);
 
