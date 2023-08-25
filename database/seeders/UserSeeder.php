@@ -13,25 +13,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::create([
-        //     'name' => 'nawfal',
-        //     'email' => 'nawfal@gmail.com',
-        //     'password' => 'nawfal123',
-        //     'profile_picture' =>
-        // ]);
+        User::create([
+            'name' => 'nawfal',
+            'email' => 'nawfal@gmail.com',
+            'password' => 'nawfal123',
+            'profile_photo_path' => 'profile-photos/default-profile-photo.png'
+        ]);
 
-        // User::create([
-        //     'name' => 'althaf',
-        //     'email' => 'althaf@gmail.com',
-        //     'password' => 'althaf123',
-        //     'profile_picture' =>
-        // ]);
-
-        // User::create([
-        //     'name' => 'budiman',
-        //     'email' => 'budiman@gmail.com',
-        //     'password' => 'budiman123',
-        //     'profile_picture' =>
-        // ]);
+        User::create([
+            'name' => 'budiman',
+            'email' => 'budiman@gmail.com',
+            'password' => 'budiman123',
+            'profile_photo_path' => 'profile-photos/default-profile-photo.png'
+        ]);
     }
 }
