@@ -16,18 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'home']);
+Route::get('/', [HomeController::class, 'home'])->middleware('auth');
 
 // Authentication
-Route::get('/register', [AuthenticationController::class, 'registerView']);
+Route::controller(AuthenticationController::class)->group(function() {
+    Route::get('/register', [AuthenticationController::class, 'registerView']);
+    Route::get('/login', [AuthenticationController::class, 'loginView'])->name('login');
+    Route::post('/register', [AuthenticationController::class, 'register']);
+    Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::post('/logout', [AuthenticationController::class, 'logout']);
+});
 
-Route::get('/login', [AuthenticationController::class, 'loginView'])->name('login');
-
-Route::post('/register', [AuthenticationController::class, 'register']);
-
-Route::post('/login', [AuthenticationController::class, 'login']);
-
-Route::post('/logout', [AuthenticationController::class, 'logout']);
 
 // Question
 Route::post('/question', [QuestionController::class, 'store']);
