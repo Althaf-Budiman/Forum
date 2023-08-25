@@ -2,7 +2,7 @@
 @section('main')
     <div class="flex flex-col items-center">
         <div class="flex w-8/12 bg-gray-700 p-3 mt-3 justify-between">
-            <h1 class="text-xl font-semibold text-white leading-[48px]">Ask a question, or answer!</h1>
+            <h1 class="text-xl font-semibold text-white leading-[48px]">Hi, {{ Auth::user()->name }}!</h1>
             <label for="modal_add_question" class="btn btn-primary">Ask Question</button>
         </div>
 
