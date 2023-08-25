@@ -84,7 +84,7 @@
                         <span class="badge">{{ $question->category }}</span>
                     </div>
 
-                    {{-- Questioner avatar and name --}}
+                    {{-- Questioner avatar and name and also bookmark--}}
                     <div class="flex mt-12">
                         <div class="avatar">
                             <div class="w-10 h-10 rounded-full">
@@ -93,6 +93,7 @@
                             </div>
                         </div>
                         <p class="leading-[48px] ml-3">{{ $question->user->name }}</p>
+                        <i class="bi bi-bookmark leading-[48px] ml-3"></i>
                     </div>
                 </div>
             </div>
