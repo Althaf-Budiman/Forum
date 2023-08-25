@@ -79,12 +79,13 @@
                     {{-- Question Title And Kategori --}}
                     <div class="flex flex-col">
                         <div class="w-80 whitespace-nowrap text-ellipsis overflow-hidden">
-                            <a href="#" class="text-lg font-semibold text-white underline leading-[48px]">{{ $question->title }}</a>
+                            <a href="#"
+                                class="text-lg font-semibold text-white underline leading-[48px]">{{ $question->title }}</a>
                         </div>
                         <span class="badge">{{ $question->category }}</span>
                     </div>
 
-                    {{-- Questioner avatar and name and also bookmark--}}
+                    {{-- Questioner avatar and name --}}
                     <div class="flex mt-12">
                         <div class="avatar">
                             <div class="w-10 h-10 rounded-full">
@@ -93,7 +94,11 @@
                             </div>
                         </div>
                         <p class="leading-[48px] ml-3">{{ $question->user->name }}</p>
-                        <i class="bi bi-bookmark leading-[48px] ml-3"></i>
+                    </div>
+
+                    {{-- Questioner bookmarks --}}
+                    <div class="flex mt-12">
+                        <i class="bi bi-bookmark ml-3"></i>
                     </div>
                 </div>
             </div>
