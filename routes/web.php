@@ -20,13 +20,12 @@ Route::get('/', [HomeController::class, 'home'])->middleware('auth');
 
 // Authentication
 Route::controller(AuthenticationController::class)->group(function() {
-    Route::get('/register', [AuthenticationController::class, 'registerView']);
-    Route::get('/login', [AuthenticationController::class, 'loginView'])->name('login');
-    Route::post('/register', [AuthenticationController::class, 'register']);
-    Route::post('/login', [AuthenticationController::class, 'login']);
-    Route::post('/logout', [AuthenticationController::class, 'logout']);
+    Route::get('/register', 'registerView');
+    Route::get('/login', 'loginView')->name('login');
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout');
 });
-
 
 // Question
 Route::post('/question', [QuestionController::class, 'store']);
