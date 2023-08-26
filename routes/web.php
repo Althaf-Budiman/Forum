@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'home'])->middleware('auth');
+Route::get('/', [QuestionController::class, 'home'])->middleware('auth');
 
 // Authentication
 Route::controller(AuthenticationController::class)->group(function() {
@@ -29,3 +29,7 @@ Route::controller(AuthenticationController::class)->group(function() {
 
 // Question
 Route::post('/question', [QuestionController::class, 'store']);
+
+Route::post('/question/{id}/upvote', [QuestionController::class, 'upvote']);
+
+Route::post('/question/{id}/downvote', [QuestionController::class, 'downvote']);
