@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.1/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    @livewireStyles
 </head>
 
 <body>
@@ -30,6 +31,7 @@
         </div>
     </div>
     @yield('main')
+    @livewireScripts
 </body>
 
 </html>

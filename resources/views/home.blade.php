@@ -65,19 +65,7 @@
             <div class="flex w-8/12 bg-gray-700 p-3 mt-3">
                 <div class="flex w-full justify-evenly">
                     {{-- Upvote Downvote --}}
-                    <div class="flex flex-col items-center">
-                        <form action='{{ url("/question/$question->id/upvote") }}' method="POST">
-                            @csrf
-                            <button type="submit" class="bi bi-caret-up"></button>
-                        </form>
-                        <p class="leading-[48px]">
-                            {{ $question->votes->where('vote_type', 'upvote')->count() - $question->votes->where('vote_type', 'downvote')->count() }}
-                        </p>
-                        <form action='{{ url("/question/$question->id/downvote") }}' method="POST">
-                            @csrf
-                            <button type="submit" class="bi bi-caret-down"></button>
-                        </form>
-                    </div>
+                    @livewire('vote-component', ['question' => $question], key($question->id))
 
                     {{-- Answer Count --}}
                     <div class="flex flex-col">
