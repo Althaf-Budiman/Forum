@@ -37,7 +37,7 @@
 
                 {{-- Questioner bookmarks --}}
                 <div class="flex mt-12">
-                    <i class="bi bi-bookmark ml-3"></i>
+                    <button wire:click="bookmark({{ $question->id }})" class="{{ $question->bookmarkStatusIcon() }}"></button>
                 </div>
             </div>
         </div>

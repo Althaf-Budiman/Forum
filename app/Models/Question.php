@@ -30,6 +30,16 @@ class Question extends Model
         return $this->hasMany(Vote::class);
     }
 
+    /**
+     * Get all of the bookmarks for the Question
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bookmarks(): HasMany
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
     // get the vote status
     public function upvoteStatusIcon()
     {
@@ -52,6 +62,19 @@ class Question extends Model
             return 'bi bi-caret-down-fill';
         } else {
             return 'bi bi-caret-down';
+        }
+    }
+
+    // Fungsi untuk mengubah icon bookmark
+    public function bookmarkStatusIcon()
+    {
+        $user = Auth::user();
+
+        $bookmarked = $this->bookmarks()->where('user_id', $user->id)->first();
+        if ($bookmarked) {
+            return 'bi bi-bookmark-fill';
+        } else {
+            return 'bi bi-bookmark';
         }
     }
 }

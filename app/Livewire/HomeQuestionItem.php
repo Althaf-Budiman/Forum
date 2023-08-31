@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Bookmark;
 use App\Models\Question;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Auth;
@@ -15,11 +16,7 @@ class HomeQuestionItem extends Component
     {
         $this->questions = Question::orderBy('total_votes', 'DESC')->get();
 
-        foreach ($this->questions as $question) {
-            $question->update([
-                'total_votes' => $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count()
-            ]);
-        }
+        $this->calculateTotalVotes();
     }
 
     // Ketika button upvote diklik
@@ -46,11 +43,7 @@ class HomeQuestionItem extends Component
                 'vote_status' => 'upvote'
             ]);
         }
-        foreach ($this->questions as $question) {
-            $question->update([
-                'total_votes' => $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count()
-            ]);
-        }
+        $this->calculateTotalVotes();
     }
 
     // Ketika button downvote diklik
@@ -73,13 +66,35 @@ class HomeQuestionItem extends Component
             Vote::create([
                 'user_id' => $user->id,
                 'question_id' => $question->id,
-                'vote_type' => 'downvote', 
+                'vote_type' => 'downvote',
                 'vote_status' => 'downvote'
             ]);
         }
+        $this->calculateTotalVotes();
+    }
+
+    public function calculateTotalVotes()
+    {
         foreach ($this->questions as $question) {
             $question->update([
                 'total_votes' => $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count()
+            ]);
+        }
+    }
+
+    public function bookmark($questionId)
+    {
+        $user = Auth::user();
+        $question = Question::findOrFail($questionId);
+
+        $existingBookmark = $question->bookmarks()->where('user_id', $user->id)->first();
+        if ($existingBookmark) {
+            $existingBookmark->delete();
+        } else {
+            Bookmark::create([
+                'user_id' => $user->id,
+                'bookmark_status' => 'bookmark',
+                'question_id' => $question->id
             ]);
         }
     }
