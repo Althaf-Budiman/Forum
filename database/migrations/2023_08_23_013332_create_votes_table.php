@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('vote_type');
+            $table->enum('vote_status', ['upvote', 'empty', 'downvote'])->default('empty');
             // Pilih salah satu
             $table->foreignId('answer_id')->nullable()->constrained();
             $table->foreignId('question_id')->nullable()->constrained();

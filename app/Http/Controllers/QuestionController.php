@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,9 +10,7 @@ class QuestionController extends Controller
 {
     public function home()
     {
-        $questions = Question::all();
-
-        return view('home', compact('questions'));
+        return view('home');
     }
 
     public function store(Request $request)
