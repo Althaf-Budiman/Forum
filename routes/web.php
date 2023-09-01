@@ -28,3 +28,5 @@ Route::controller(AuthenticationController::class)->group(function() {
 
 // Question
 Route::post('/question', [QuestionController::class, 'store']);
+
+Route::get('/question/{id}/detail', [QuestionController::class, 'detailQuestion']);

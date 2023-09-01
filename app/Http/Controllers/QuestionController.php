@@ -31,4 +31,10 @@ class QuestionController extends Controller
 
         return redirect('/');
     }
+
+    public function detailQuestion($id)
+    {
+        $question = Question::findOrFail($id);
+        return view('detail-question', compact('question'));
+    }
 }

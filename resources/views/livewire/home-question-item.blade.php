@@ -6,9 +6,10 @@
                 <div class="flex flex-col items-center">
                     <button wire:click="upvote({{ $question->id }})" class="{{ $question->upvoteStatusIcon() }}"></button>
                     <p class="leading-[48px]">
-                        {{ $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count() }}
+                        {{ $question->votes()->where('vote_type', 'upvote')->count() -$question->votes()->where('vote_type', 'downvote')->count() }}
                     </p>
-                    <button wire:click="downvote({{ $question->id }})" class="{{ $question->downvoteStatusIcon() }}"></button>
+                    <button wire:click="downvote({{ $question->id }})"
+                        class="{{ $question->downvoteStatusIcon() }}"></button>
                 </div>
                 {{-- Answer Count --}}
                 <div class="flex flex-col">
@@ -18,7 +19,7 @@
                 {{-- Question Title And Kategori --}}
                 <div class="flex flex-col">
                     <div class="w-80 whitespace-nowrap text-ellipsis overflow-hidden">
-                        <a href="#"
+                        <a href='{{ url("/question/$question->id/detail") }}'
                             class="text-lg font-semibold text-white underline leading-[48px]">{{ $question->title }}</a>
                     </div>
                     <span class="badge">{{ $question->category }}</span>
@@ -37,7 +38,8 @@
 
                 {{-- Questioner bookmarks --}}
                 <div class="flex mt-12">
-                    <button wire:click="bookmark({{ $question->id }})" class="{{ $question->bookmarkStatusIcon() }}"></button>
+                    <button wire:click="bookmark({{ $question->id }})"
+                        class="{{ $question->bookmarkStatusIcon() }}"></button>
                 </div>
             </div>
         </div>
