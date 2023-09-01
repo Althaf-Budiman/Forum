@@ -8,15 +8,13 @@ use App\Models\Vote;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class HomeQuestionItem extends Component
+class QuestionItem extends Component
 {
-    public $questions;
+    public $question;
 
-    public function mount()
+    public function mount(Question $question)
     {
-        $this->questions = Question::orderBy('total_votes', 'DESC')->get();
-
-        $this->calculateTotalVotes();
+        $this->question = $question;
     }
 
     // Ketika button upvote diklik
@@ -43,7 +41,7 @@ class HomeQuestionItem extends Component
                 'vote_status' => 'upvote'
             ]);
         }
-        $this->calculateTotalVotes();
+        $this->calculateTotalVotes($question);
     }
 
     // Ketika button downvote diklik
@@ -70,16 +68,14 @@ class HomeQuestionItem extends Component
                 'vote_status' => 'downvote'
             ]);
         }
-        $this->calculateTotalVotes();
+        $this->calculateTotalVotes($question);
     }
 
-    public function calculateTotalVotes()
+    public function calculateTotalVotes($question)
     {
-        foreach ($this->questions as $question) {
-            $question->update([
-                'total_votes' => $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count()
-            ]);
-        }
+        $question->update([
+            'total_votes' => $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count()
+        ]);
     }
 
     public function bookmark($questionId)
@@ -101,6 +97,6 @@ class HomeQuestionItem extends Component
 
     public function render()
     {
-        return view('livewire.home-question-item');
+        return view('livewire.question-item');
     }
 }

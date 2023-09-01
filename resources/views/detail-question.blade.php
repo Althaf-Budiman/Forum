@@ -1,4 +1,6 @@
 @extends('layouts.app')
 @section('main')
-    {{ $question->user->name }}
+    <div class="flex w-full items-center flex-col">
+        @livewire('question-item', ['question' => $question])
+    </div>
 @endsection

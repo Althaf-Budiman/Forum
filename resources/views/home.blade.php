@@ -61,7 +61,11 @@
         {{-- End modal add question --}}
 
         {{-- Questions Item --}}
-        @livewire('home-question-item')
+        <div class="flex w-full items-center flex-col">
+            @foreach ($questions as $question)
+                @livewire('question-item', ['question' => $question])
+            @endforeach
+        </div>
         {{-- End Of Questions --}}
     </div>
 @endsection

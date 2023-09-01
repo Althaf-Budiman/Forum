@@ -10,7 +10,8 @@ class QuestionController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $questions = Question::orderBy('total_votes', 'DESC')->get();
+        return view('home', compact('questions'));
     }
 
     public function store(Request $request)
