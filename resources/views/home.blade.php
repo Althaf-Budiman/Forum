@@ -25,17 +25,6 @@
                         </span>
                     @enderror
 
-                    <label class="label" for="description">
-                        <span class="label-text">Question Description</span>
-                    </label>
-                    <textarea type="text" name="description" id="description" placeholder="Input Your Question Description Here"
-                        class="textarea textarea-bordered w-full max-w-xs" value="{{ old('description') }}"></textarea>
-                    @error('description')
-                        <span class="text-red-500">
-                            {{ $message }}
-                        </span>
-                    @enderror
-
                     <label class="label" for="category">
                         <span class="label-text">Question Category</span>
                     </label>
@@ -51,8 +40,10 @@
                     @enderror
 
                     <div class="modal-action">
-                        <label for="modal_add_question" class="btn btn-primary">Close!</label>
-                        <button type="submit" class="btn btn-outline btn-success">Add</button>
+                        <label for="modal_add_question" class="btn btn-outline btn-primary">Close!</label>
+                        <div class="btn btn-success">
+                            <button class="font-medium text-white" type="submit">ADD</button>
+                        </div>
                     </div>
                 </form>
             </div>

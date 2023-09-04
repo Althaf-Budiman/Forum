@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('question_id')->constrained();
             $table->string('answer');
+            $table->integer('total_votes')->default(0);
             $table->timestamps();
         });
     }

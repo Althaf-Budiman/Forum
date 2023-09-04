@@ -26,16 +26,9 @@ class QuestionController extends Controller
         Question::create([
             'user_id' => $user->id,
             'title' => $request->title,
-            'description' => $request->description,
             'category' => $request->category
         ]);
 
         return redirect('/');
-    }
-
-    public function detailQuestion($id)
-    {
-        $question = Question::findOrFail($id);
-        return view('detail-question', compact('question'));
     }
 }

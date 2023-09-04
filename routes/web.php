@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\QuestionController;
+use App\Models\Answer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +31,7 @@ Route::controller(AuthenticationController::class)->group(function() {
 // Question
 Route::post('/question', [QuestionController::class, 'store']);
 
-Route::get('/question/{id}/detail', [QuestionController::class, 'detailQuestion']);
+// Answer
+Route::get('/question/{id}/detail', [AnswerController::class, 'detailQuestion']);
+
+Route::post('/answer/{questionId}', [AnswerController::class, 'store']);
