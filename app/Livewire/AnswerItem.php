@@ -2,16 +2,16 @@
 
 namespace App\Livewire;
 
-use App\Models\Question;
+use App\Models\Answer;
 use Livewire\Component;
 
 class AnswerItem extends Component
 {
-    public $question;
+    public $answer;
 
-    public function mount(Question $question)
+    public function mount(Answer $answer)
     {
-        $this->question = $question;
+        $this->answer = $answer;
     }
 
     public function render()

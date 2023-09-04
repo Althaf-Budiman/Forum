@@ -12,7 +12,8 @@ class AnswerController extends Controller
     public function detailQuestion($id)
     {
         $question = Question::findOrFail($id);
-        return view('detail-question', compact('question'));
+        $answers = Answer::where('question_id', $question->id)->orderByDesc('total_votes')->get();
+        return view('detail-question', compact('question', 'answers'));
     }
 
     public function store(Request $request, $questionId)

@@ -8,8 +8,12 @@
             <h1 class="p-1 text-lg font-semibold">0 Answers</h1>
         </div>
 
+        @foreach ($answers as $answer)
+            @livewire('answer-item', ['answer' => $answer])
+        @endforeach
+
         {{-- Add Answer --}}
-        <div class="flex w-8/12 bg-gray-700 p-3e mt-3 flex-col">
+        <div class="flex w-8/12 bg-gray-700 p-3 mt-3 flex-col">
             <h1 class="p-1 text-lg font-semibold">Add your answer</h1>
             <form action="/answer/{{ $question->id }}" method="POST">
                 @csrf
@@ -26,6 +30,5 @@
             </form>
         </div>
 
-        @livewire('answer-item', ['question' => $question])
     </div>
 @endsection
