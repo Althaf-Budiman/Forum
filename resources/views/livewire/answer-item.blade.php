@@ -3,41 +3,35 @@
         <div class="flex w-full justify-evenly">
             {{-- Upvote Downvote --}}
             <div class="flex flex-col items-center">
-                <button wire:click="upvote({{ $question->id }})" class="{{ $question->upvoteStatusIcon() }}"></button>
+                <button wire:click="upvote({{ $answer->id }})" class="{{ $answer->upvoteStatusIcon() }}"></button>
                 <p class="leading-[48px]">
-                    {{ $question->votes()->where('vote_type', 'upvote')->count() -$question->votes()->where('vote_type', 'downvote')->count() }}
+                    {{ $answer->votes()->where('vote_type', 'upvote')->count() -$answer->votes()->where('vote_type', 'downvote')->count() }}
                 </p>
-                <button wire:click="downvote({{ $question->id }})" class="{{ $question->downvoteStatusIcon() }}"></button>
-            </div>
-            {{-- Answer Count --}}
-            <div class="flex flex-col">
-                <p class="leading-[96px]">0 answer</p>
+                <button wire:click="downvote({{ $answer->id }})" class="{{ $answer->downvoteStatusIcon() }}"></button>
             </div>
 
             {{-- Question Title , Kategori  --}}
             <div class="flex flex-col">
                 <div class="w-80 whitespace-nowrap text-ellipsis overflow-hidden">
-                    <a href='{{ url("/question/$question->id/detail") }}'
-                        class="text-lg font-semibold text-white underline leading-[48px]">{{ $question->title }}</a>
+                    <p class="text-lg font-semibold text-white leading-[48px]">{{ $answer->answer }}</p>
                 </div>
-                <span class="badge">{{ $question->category }}</span>
             </div>
 
             {{-- Questioner avatar and name --}}
             <div class="flex mt-7">
                 <div class="avatar">
                     <div class="w-10 h-10 rounded-full">
-                        <img class="w-full" src="{{ asset('storage/' . $question->user->profile_photo_path) }}"
+                        <img class="w-full" src="{{ asset('storage/' . $answer->user->profile_photo_path) }}"
                             alt="user avatar questioner">
                     </div>
                 </div>
-                <p class="leading-[48px] ml-3">{{ $question->user->name }}</p>
+                <p class="leading-[48px] ml-3">{{ $answer->user->name }}</p>
             </div>
 
             {{-- Questioner bookmarks --}}
             <div class="flex">
-                <button wire:click="bookmark({{ $question->id }})"
-                    class="{{ $question->bookmarkStatusIcon() }}"></button>
+                <button wire:click="bookmark({{ $answer->id }})"
+                    class="{{ $answer->bookmarkStatusIcon() }}"></button>
             </div>
 
         </div>
