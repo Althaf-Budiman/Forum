@@ -40,6 +40,16 @@ class Question extends Model
         return $this->hasMany(Bookmark::class);
     }
 
+    /**
+     * Get all of the answers for the Question
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class);
+    }
+
     // get the vote status
     public function upvoteStatusIcon()
     {
@@ -76,5 +86,10 @@ class Question extends Model
         } else {
             return 'bi bi-bookmark';
         }
+    }
+
+    public function totalAnswers(): int
+    {
+        return count($this->answers()->get());
     }
 }

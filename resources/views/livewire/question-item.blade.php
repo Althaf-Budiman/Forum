@@ -10,7 +10,7 @@
         </div>
         {{-- Answer Count --}}
         <div class="flex flex-col">
-            <p class="leading-[96px]">0 answer</p>
+            <p class="leading-[96px]">{{ $question->totalAnswers() }} Answers</p>
         </div>
 
         {{-- Question Title , Kategori  --}}
