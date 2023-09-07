@@ -54,6 +54,16 @@ class Answer extends Model
         return $this->hasMany(Bookmark::class);
     }
 
+    /**
+     * Get all of the comments for the Answer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     // get the vote status
     public function upvoteStatusIcon()
     {

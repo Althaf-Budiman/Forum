@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Answer;
 use App\Models\Bookmark;
+use App\Models\Comment;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -12,9 +13,22 @@ class AnswerItem extends Component
 {
     public $answer;
 
+    // To get all comments from answer
+    public $comments;
+
+    // To set the view if the comment opened or no
+    public bool $isCommentOpen;
+
     public function mount(Answer $answer)
     {
         $this->answer = $answer;
+        $this->isCommentOpen = false;
+    }
+
+    public function loadComments($answerId)
+    {
+        $this->isCommentOpen = !$this->isCommentOpen;
+        $this->comments = Comment::where('answer_id', $answerId)->get();
     }
 
     // Ketika button upvote diklik

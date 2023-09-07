@@ -41,9 +41,7 @@
 
                     <div class="modal-action">
                         <label for="modal_add_question" class="btn btn-outline btn-primary">Close!</label>
-                        <div class="btn btn-success">
-                            <button class="font-medium text-white" type="submit">ADD</button>
-                        </div>
+                        <button class="font-medium text-white bg-[#36D399] px-4 rounded" type="submit">ADD</button>
                     </div>
                 </form>
             </div>
@@ -54,7 +52,7 @@
         {{-- Questions Item --}}
         <div class="flex w-full items-center flex-col">
             @foreach ($questions as $question)
-                @livewire('question-item', ['question' => $question])
+                @livewire('question-item', ['question' => $question, 'isDetailPage' => false])
             @endforeach
         </div>
         {{-- End Of Questions --}}

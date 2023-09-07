@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('main')
     <div class="flex w-full items-center flex-col">
-        @livewire('question-item', ['question' => $question])
+        @livewire('question-item', ['question' => $question, 'isDetailPage' => true])
 
         {{-- Answer Count --}}
         <div class="flex w-8/12 bg-gray-700 p-3 mt-3">

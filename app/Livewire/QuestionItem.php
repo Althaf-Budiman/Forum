@@ -12,9 +12,12 @@ class QuestionItem extends Component
 {
     public $question;
 
-    public function mount(Question $question)
+    public bool $isDetailPage;
+
+    public function mount(Question $question, bool $isDetailPage)
     {
         $this->question = $question;
+        $this->isDetailPage = $isDetailPage;
     }
 
     // Ketika button upvote diklik
