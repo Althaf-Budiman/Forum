@@ -42,13 +42,13 @@ class AnswerItem extends Component
         ]);
 
         $this->comment = "";
-        $this->comments = Comment::where('answer_id', $this->answer->id)->get();
+        $this->comments = Comment::where('answer_id', $this->answer->id)->orderByDesc('total_votes')->get();
     }
 
     public function loadComments()
     {
         $this->isCommentOpen = !$this->isCommentOpen;
-        $this->comments = Comment::where('answer_id', $this->answer->id)->get();
+        $this->comments = Comment::where('answer_id', $this->answer->id)->orderByDesc('total_votes')->get();
     }
 
     // Ketika button upvote diklik
