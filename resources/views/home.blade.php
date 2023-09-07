@@ -52,7 +52,7 @@
         {{-- Questions Item --}}
         <div class="flex w-full items-center flex-col">
             @foreach ($questions as $question)
-                @livewire('question-item', ['question' => $question, 'isDetailPage' => false])
+                @livewire('question-item', ['question' => $question, 'isDetailPage' => false], key($question->id))
             @endforeach
         </div>
         {{-- End Of Questions --}}

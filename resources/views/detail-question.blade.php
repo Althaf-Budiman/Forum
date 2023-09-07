@@ -9,7 +9,7 @@
         </div>
 
         @foreach ($answers as $answer)
-            @livewire('answer-item', ['answer' => $answer])
+            @livewire('answer-item', ['answer' => $answer], key($answer->id))
         @endforeach
 
         {{-- Add Answer --}}
