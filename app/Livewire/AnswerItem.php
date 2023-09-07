@@ -11,6 +11,7 @@ use Livewire\Component;
 
 class AnswerItem extends Component
 {
+    // This property will be filled with argument from looping in detail view
     public $answer;
 
     // To get all comments from answer
@@ -19,16 +20,35 @@ class AnswerItem extends Component
     // To set the view if the comment opened or no
     public bool $isCommentOpen;
 
+    // Model for input in view
+    public $comment;
+
     public function mount(Answer $answer)
     {
         $this->answer = $answer;
         $this->isCommentOpen = false;
     }
 
-    public function loadComments($answerId)
+    public function addComment()
+    {
+        $this->validate([
+            'comment' => 'required'
+        ]);
+
+        Comment::create([
+            'user_id' => auth()->user()->id,
+            'answer_id' => $this->answer->id,
+            'comment' => $this->comment
+        ]);
+
+        $this->comment = "";
+        $this->comments = Comment::where('answer_id', $this->answer->id)->get();
+    }
+
+    public function loadComments()
     {
         $this->isCommentOpen = !$this->isCommentOpen;
-        $this->comments = Comment::where('answer_id', $answerId)->get();
+        $this->comments = Comment::where('answer_id', $this->answer->id)->get();
     }
 
     // Ketika button upvote diklik

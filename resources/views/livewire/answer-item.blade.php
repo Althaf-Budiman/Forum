@@ -31,14 +31,13 @@
             {{-- Answer bookmarks --}}
             <div class="flex gap-3">
                 <button wire:click="bookmark({{ $answer->id }})" class="{{ $answer->bookmarkStatusIcon() }}"></button>
-                <button wire:click="loadComments({{ $answer->id }})" class="bi bi-chat "></button>
+                <button wire:click="loadComments()" class="bi bi-chat "></button>
             </div>
 
         </div>
 
         @if ($isCommentOpen)
-            <form method="POST" action="/comment/{{ $answer->id }}">
-                @csrf
+            <form wire:submit.prevent="addComment()">
                 <div class="flex mt-8 gap-3">
                     <div class="avatar">
                         <div class="w-10 h-10 rounded-full">
@@ -46,19 +45,14 @@
                                 alt="user avatar questioner">
                         </div>
                     </div>
-                    <input type="text" name="comment" placeholder="Type Your Comment"
+                    <input type="text" wire:model="comment" placeholder="Type Your Comment"
                         class="input input-bordered w-full" value="{{ old('comment') }}" />
-                    @error('comment')
-                        <span class="text-red-500">
-                            {{ $message }}
-                        </span>
-                    @enderror
-                    <button type="submit" class="btn btn-primary">SEND</button>
+                    <button wire:click="addComment()" class="btn btn-primary">SEND</button>
                 </div>
             </form>
             @isset($comments)
                 @foreach ($comments as $comment)
-                    @livewire('comment-item', ['comment' => $comment])
+                    @livewire('comment-item', ['comment' => $comment], key($comment->id))
                 @endforeach
             @endisset
         @endif
