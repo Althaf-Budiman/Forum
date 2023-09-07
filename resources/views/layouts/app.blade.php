@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="navbar bg-base-100 border-b border-b-gray-700">
+    <div class="navbar bg-base-100 border-b border-b-gray-700 sticky top-0 z-50">
         <div class="navbar-start">
             <a href="{{ url('/') }}" class="btn btn-ghost normal-case text-xl">Forum</a>
         </div>
