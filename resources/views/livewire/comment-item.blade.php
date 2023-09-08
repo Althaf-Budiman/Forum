@@ -1,4 +1,4 @@
-<div class="flex w-full justify-between pr-8 mt-4">
+<div class="flex w-full justify-between pr-8 mt-4 border-b-[0.1px]">
 
     {{-- Comment Content  --}}
     <div class="flex flex-col">
@@ -15,14 +15,15 @@
         <div class="w-[40rem] ms-12">
             <p class="text-lg font-regular text-white">{{ $comment->comment }}</p>
         </div>
+
+        {{-- Upvote Downvote --}}
+        <div class="flex gap-5 ps-8">
+            <button wire:click="upvote({{ $comment->id }})" class="{{ $comment->upvoteStatusIcon() }}"></button>
+            <p class="leading-[48px]">
+                {{ $comment->votes()->where('vote_type', 'upvote')->count() -$comment->votes()->where('vote_type', 'downvote')->count() }}
+            </p>
+            <button wire:click="downvote({{ $comment->id }})" class="{{ $comment->downvoteStatusIcon() }}"></button>
+        </div>
     </div>
 
-    {{-- Upvote Downvote --}}
-    <div class="flex flex-col items-center">
-        <button wire:click="upvote({{ $comment->id }})" class="{{ $comment->upvoteStatusIcon() }}"></button>
-        <p class="leading-[48px]">
-            {{ $comment->votes()->where('vote_type', 'upvote')->count() -$comment->votes()->where('vote_type', 'downvote')->count() }}
-        </p>
-        <button wire:click="downvote({{ $comment->id }})" class="{{ $comment->downvoteStatusIcon() }}"></button>
-    </div>
 </div>

@@ -31,24 +31,53 @@ class AnswerItem extends Component
 
     public function addComment()
     {
+        $user = Auth::user();
+
         $this->validate([
             'comment' => 'required'
         ]);
 
         Comment::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,
             'answer_id' => $this->answer->id,
             'comment' => $this->comment
         ]);
 
         $this->comment = "";
-        $this->comments = Comment::where('answer_id', $this->answer->id)->orderByDesc('total_votes')->get();
+        
+        // Komen user yang ter-authentikasi
+        $myComments = Comment::where('answer_id', $this->answer->id)
+            ->where('user_id', $user->id)
+            ->orderByDesc('total_votes')
+            ->get();
+
+        // Komen user lain
+        $otherComments = Comment::where('answer_id', $this->answer->id)
+            ->where('user_id', '!=', $user->id)
+            ->orderByDesc('total_votes')
+            ->get();
+
+        $this->comments = $myComments->concat($otherComments);
     }
 
     public function loadComments()
     {
+        $user = Auth::user();
+
+        // Komen user yang ter-authentikasi
+        $myComments = Comment::where('answer_id', $this->answer->id)
+            ->where('user_id', $user->id)
+            ->orderByDesc('total_votes')
+            ->get();
+
+        // Komen user lain
+        $otherComments = Comment::where('answer_id', $this->answer->id)
+            ->where('user_id', '!=', $user->id)
+            ->orderByDesc('total_votes')
+            ->get();
+
+        $this->comments = $myComments->concat($otherComments);
         $this->isCommentOpen = !$this->isCommentOpen;
-        $this->comments = Comment::where('answer_id', $this->answer->id)->orderByDesc('total_votes')->get();
     }
 
     // Ketika button upvote diklik
