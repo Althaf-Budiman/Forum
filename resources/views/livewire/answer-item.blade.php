@@ -17,7 +17,7 @@
                     <button wire:click="downvote({{ $answer->id }})"
                         class="{{ $answer->downvoteStatusIcon() }}"></button>
 
-                    <button wire:click="loadComments()" class="bi bi-chat "> {{ $answer->comments()->count() }}</button>
+                    <button wire:click="loadComments()" class="bi bi-chat "> {{ $answer->comments()->where('parent_id', null)->count() }}</button>
                 </div>
             </div>
 

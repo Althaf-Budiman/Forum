@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('answer_id')->constrained();
+            $table->foreignId('parent_id')->nullable();
             $table->string('comment');
             $table->integer('total_votes')->default(0);
             $table->timestamps();

@@ -48,12 +48,14 @@ class AnswerItem extends Component
         // Komen user yang ter-authentikasi
         $myComments = Comment::where('answer_id', $this->answer->id)
             ->where('user_id', $user->id)
+            ->where('parent_id', null)
             ->orderByDesc('total_votes')
             ->get();
 
         // Komen user lain
         $otherComments = Comment::where('answer_id', $this->answer->id)
             ->where('user_id', '!=', $user->id)
+            ->where('parent_id', null)
             ->orderByDesc('total_votes')
             ->get();
 
@@ -67,12 +69,14 @@ class AnswerItem extends Component
         // Komen user yang ter-authentikasi
         $myComments = Comment::where('answer_id', $this->answer->id)
             ->where('user_id', $user->id)
+            ->where('parent_id', null)
             ->orderByDesc('total_votes')
             ->get();
 
         // Komen user lain
         $otherComments = Comment::where('answer_id', $this->answer->id)
             ->where('user_id', '!=', $user->id)
+            ->where('parent_id', null)
             ->orderByDesc('total_votes')
             ->get();
 

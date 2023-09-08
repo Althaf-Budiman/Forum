@@ -23,7 +23,7 @@
                 <a href="{{ url('/login') }}" class="btn btn-secondary btn-outline normal-case text-base">Login</a>
             @else
                 <button class="btn btn-secondary btn-outline normal-case text-base"
-                    onclick="document.getElementById('logout').submit()">Logout</button>
+                    onclick="document.getElementById('logout').submit()">Logout From {{ auth()->user()->name }}</button>
                 <form action="{{ url('/logout') }}" method="post" id="logout">
                     @csrf
                 </form>
