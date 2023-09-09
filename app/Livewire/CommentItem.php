@@ -3,12 +3,14 @@
 namespace App\Livewire;
 
 use App\Models\Comment;
-use App\Models\Vote;
+use App\Traits\VoteAndBookmarkable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CommentItem extends Component
 {
+    use VoteAndBookmarkable;
+
     // used in the view foreach loop
     public $comment;
 
@@ -85,65 +87,17 @@ class CommentItem extends Component
         $this->replies = $myComments->concat($otherComments);
     }
 
-    // Ketika button upvote diklik
-    public function upvote($commentId)
+    // when btn vote clicked in the view
+    public function commentAddVote($voteType)
     {
-        $user = Auth::user();
-        $comment = Comment::findOrFail($commentId);
-
-        $existingVote = $comment->votes()->where('user_id', $user->id)->first();
-        if ($existingVote) {
-            if ($existingVote->vote_type === 'upvote') {
-                $existingVote->delete();
-            } else if ($existingVote->vote_type === 'downvote') {
-                $existingVote->update([
-                    'vote_type' => 'upvote',
-                    'vote_status' => 'upvote'
-                ]);
-            }
-        } else {
-            Vote::create([
-                'user_id' => $user->id,
-                'comment_id' => $comment->id,
-                'vote_type' => 'upvote',
-                'vote_status' => 'upvote'
-            ]);
-        }
-        $this->calculateTotalVotes($comment);
+        $this->addVote($this->comment, $voteType);
+        $this->commentTotalVotes();
     }
 
-    // Ketika button downvote diklik
-    public function downvote($commentId)
+    // to calculate total votes so data can be ordered by total_votes
+    public function commentTotalVotes()
     {
-        $user = Auth::user();
-        $comment = Comment::findOrFail($commentId);
-
-        $existingVote = $comment->votes()->where('user_id', $user->id)->first();
-        if ($existingVote) {
-            if ($existingVote->vote_type === 'downvote') {
-                $existingVote->delete();
-            } else if ($existingVote->vote_type === 'upvote') {
-                $existingVote->update([
-                    'vote_type' => 'downvote',
-                    'vote_status' => 'downvote'
-                ]);
-            }
-        } else {
-            Vote::create([
-                'user_id' => $user->id,
-                'comment_id' => $comment->id,
-                'vote_type' => 'downvote',
-                'vote_status' => 'downvote'
-            ]);
-        }
-        $this->calculateTotalVotes($comment);
-    }
-
-    public function calculateTotalVotes($comment)
-    {
-        $comment->update([
-            'total_votes' => $comment->votes()->where('vote_type', 'upvote')->count() - $comment->votes()->where('vote_type', 'downvote')->count()
-        ]);
+        $this->calculateTotalVotes($this->comment);
     }
 
 

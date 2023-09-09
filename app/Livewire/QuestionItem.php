@@ -2,14 +2,14 @@
 
 namespace App\Livewire;
 
-use App\Models\Bookmark;
 use App\Models\Question;
-use App\Models\Vote;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\VoteAndBookmarkable;
 use Livewire\Component;
 
 class QuestionItem extends Component
 {
+    use VoteAndBookmarkable;
+
     public $question;
 
     public bool $isDetailPage;
@@ -20,82 +20,23 @@ class QuestionItem extends Component
         $this->isDetailPage = $isDetailPage;
     }
 
-    // Ketika button upvote diklik
-    public function upvote($questionId)
+    // when btn vote clicked in the view
+    public function questionAddVote($voteType)
     {
-        $user = Auth::user();
-        $question = Question::findOrFail($questionId);
-
-        $existingVote = $question->votes()->where('user_id', $user->id)->first();
-        if ($existingVote) {
-            if ($existingVote->vote_type === 'upvote') {
-                $existingVote->delete();
-            } else if ($existingVote->vote_type === 'downvote') {
-                $existingVote->update([
-                    'vote_type' => 'upvote',
-                    'vote_status' => 'upvote'
-                ]);
-            }
-        } else {
-            Vote::create([
-                'user_id' => $user->id,
-                'question_id' => $question->id,
-                'vote_type' => 'upvote',
-                'vote_status' => 'upvote'
-            ]);
-        }
-        $this->calculateTotalVotes($question);
+        $this->addVote($this->question, $voteType);
+        $this->questionTotalVotes();
     }
 
-    // Ketika button downvote diklik
-    public function downvote($questionId)
+    // to calculate total votes so data can be ordered by total_votes
+    public function questionTotalVotes()
     {
-        $user = Auth::user();
-        $question = Question::findOrFail($questionId);
-
-        $existingVote = $question->votes()->where('user_id', $user->id)->first();
-        if ($existingVote) {
-            if ($existingVote->vote_type === 'downvote') {
-                $existingVote->delete();
-            } else if ($existingVote->vote_type === 'upvote') {
-                $existingVote->update([
-                    'vote_type' => 'downvote',
-                    'vote_status' => 'downvote'
-                ]);
-            }
-        } else {
-            Vote::create([
-                'user_id' => $user->id,
-                'question_id' => $question->id,
-                'vote_type' => 'downvote',
-                'vote_status' => 'downvote'
-            ]);
-        }
-        $this->calculateTotalVotes($question);
+        $this->calculateTotalVotes($this->question);
     }
 
-    public function calculateTotalVotes($question)
+    // when btn bookmark clicked in the view
+    public function questionAddBookmark()
     {
-        $question->update([
-            'total_votes' => $question->votes()->where('vote_type', 'upvote')->count() - $question->votes()->where('vote_type', 'downvote')->count()
-        ]);
-    }
-
-    public function bookmark($questionId)
-    {
-        $user = Auth::user();
-        $question = Question::findOrFail($questionId);
-
-        $existingBookmark = $question->bookmarks()->where('user_id', $user->id)->first();
-        if ($existingBookmark) {
-            $existingBookmark->delete();
-        } else {
-            Bookmark::create([
-                'user_id' => $user->id,
-                'bookmark_status' => 'bookmark',
-                'question_id' => $question->id
-            ]);
-        }
+        $this->addBookmark($this->question);
     }
 
     public function render()

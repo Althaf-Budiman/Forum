@@ -2,11 +2,11 @@
     <div class="flex w-full justify-evenly">
         {{-- Upvote Downvote --}}
         <div class="flex flex-col items-center">
-            <button wire:click="upvote({{ $question->id }})" class="{{ $question->upvoteStatusIcon() }}"></button>
+            <button wire:click="questionAddVote('upvote')" class="{{ $question->upvoteStatusIcon() }}"></button>
             <p class="leading-[48px]">
                 {{ $question->votes()->where('vote_type', 'upvote')->count() -$question->votes()->where('vote_type', 'downvote')->count() }}
             </p>
-            <button wire:click="downvote({{ $question->id }})" class="{{ $question->downvoteStatusIcon() }}"></button>
+            <button wire:click="questionAddVote('downvote')" class="{{ $question->downvoteStatusIcon() }}"></button>
         </div>
         {{-- Answer Count --}}
         <div class="flex flex-col">
@@ -35,7 +35,7 @@
 
         {{-- Questioner bookmarks --}}
         <div class="flex">
-            <button wire:click="bookmark({{ $question->id }})" class="{{ $question->bookmarkStatusIcon() }}"></button>
+            <button wire:click="questionAddBookmark()" class="{{ $question->bookmarkStatusIcon() }}"></button>
         </div>
 
     </div>

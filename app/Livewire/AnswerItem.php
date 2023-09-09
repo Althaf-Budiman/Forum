@@ -3,14 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Answer;
-use App\Models\Bookmark;
 use App\Models\Comment;
-use App\Models\Vote;
+use App\Traits\VoteAndBookmarkable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class AnswerItem extends Component
 {
+    use VoteAndBookmarkable;
+
     // This property will be filled with argument from looping in detail view
     public $answer;
 
@@ -84,82 +85,23 @@ class AnswerItem extends Component
         $this->isCommentOpen = !$this->isCommentOpen;
     }
 
-    // Ketika button upvote diklik
-    public function upvote($answerId)
+    // when btn vote clicked in the view
+    public function answerAddVote($voteType)
     {
-        $user = Auth::user();
-        $answer = Answer::findOrFail($answerId);
-
-        $existingVote = $answer->votes()->where('user_id', $user->id)->first();
-        if ($existingVote) {
-            if ($existingVote->vote_type === 'upvote') {
-                $existingVote->delete();
-            } else if ($existingVote->vote_type === 'downvote') {
-                $existingVote->update([
-                    'vote_type' => 'upvote',
-                    'vote_status' => 'upvote'
-                ]);
-            }
-        } else {
-            Vote::create([
-                'user_id' => $user->id,
-                'answer_id' => $answer->id,
-                'vote_type' => 'upvote',
-                'vote_status' => 'upvote'
-            ]);
-        }
-        $this->calculateTotalVotes($answer);
+        $this->addVote($this->answer, $voteType);
+        $this->answerTotalVotes();
     }
 
-    // Ketika button downvote diklik
-    public function downvote($answerId)
+    // to calculate total votes so data can be ordered by total_votes
+    public function answerTotalVotes()
     {
-        $user = Auth::user();
-        $answer = Answer::findOrFail($answerId);
-
-        $existingVote = $answer->votes()->where('user_id', $user->id)->first();
-        if ($existingVote) {
-            if ($existingVote->vote_type === 'downvote') {
-                $existingVote->delete();
-            } else if ($existingVote->vote_type === 'upvote') {
-                $existingVote->update([
-                    'vote_type' => 'downvote',
-                    'vote_status' => 'downvote'
-                ]);
-            }
-        } else {
-            Vote::create([
-                'user_id' => $user->id,
-                'answer_id' => $answer->id,
-                'vote_type' => 'downvote',
-                'vote_status' => 'downvote'
-            ]);
-        }
-        $this->calculateTotalVotes($answer);
+        $this->calculateTotalVotes($this->answer);
     }
 
-    public function calculateTotalVotes($answer)
+    // when btn bookmark clicked in the view
+    public function answerAddBookmark()
     {
-        $answer->update([
-            'total_votes' => $answer->votes()->where('vote_type', 'upvote')->count() - $answer->votes()->where('vote_type', 'downvote')->count()
-        ]);
-    }
-
-    public function bookmark($answerId)
-    {
-        $user = Auth::user();
-        $answer = Answer::findOrFail($answerId);
-
-        $existingBookmark = $answer->bookmarks()->where('user_id', $user->id)->first();
-        if ($existingBookmark) {
-            $existingBookmark->delete();
-        } else {
-            Bookmark::create([
-                'user_id' => $user->id,
-                'bookmark_status' => 'bookmark',
-                'answer_id' => $answer->id
-            ]);
-        }
+        $this->addBookmark($this->answer);
     }
 
     public function render()

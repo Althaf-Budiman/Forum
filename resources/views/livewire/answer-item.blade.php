@@ -10,11 +10,11 @@
                 </div>
                 {{-- Upvote Downvote, comment --}}
                 <div class="flex gap-5">
-                    <button wire:click="upvote({{ $answer->id }})" class="{{ $answer->upvoteStatusIcon() }}"></button>
+                    <button wire:click="answerAddVote('upvote')" class="{{ $answer->upvoteStatusIcon() }}"></button>
                     <p class="leading-[48px]">
                         {{ $answer->votes()->where('vote_type', 'upvote')->count() -$answer->votes()->where('vote_type', 'downvote')->count() }}
                     </p>
-                    <button wire:click="downvote({{ $answer->id }})"
+                    <button wire:click="answerAddVote('downvote')"
                         class="{{ $answer->downvoteStatusIcon() }}"></button>
 
                     <button wire:click="loadComments()" class="bi bi-chat "> {{ $answer->comments()->where('parent_id', null)->count() }}</button>
@@ -23,7 +23,7 @@
 
             {{-- Answer bookmarks --}}
             <div class="flex gap-3">
-                <button wire:click="bookmark({{ $answer->id }})" class="{{ $answer->bookmarkStatusIcon() }}"></button>
+                <button wire:click="answerAddBookmark()" class="{{ $answer->bookmarkStatusIcon() }}"></button>
             </div>
 
         </div>
