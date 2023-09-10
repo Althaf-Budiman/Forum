@@ -39,6 +39,10 @@
             @foreach ($replies as $reply)
                 @livewire('reply-item', ['reply' => $reply], key($reply->id))
             @endforeach
+            
+            @if ($showLoadButton)
+                <button wire:click="loadMoreReply({{ $comment->id }})" class="btn btn-primary">Load More</button>
+            @endif
         @endif
     </div>
 

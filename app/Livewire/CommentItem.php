@@ -22,6 +22,12 @@ class CommentItem extends Component
     // replies collection
     public $replies;
 
+    // reply comment limit data
+    public $replyDataLimit = 5;
+
+    // condition to show load button or no
+    public $showLoadButton = false;
+
     public function mount($comment)
     {
         $this->comment = $comment;
@@ -30,22 +36,7 @@ class CommentItem extends Component
 
     public function loadReply($parentId)
     {
-        $user = Auth::user();
-
-        // Komen user yang ter-authentikasi
-        $myComments = Comment::where('parent_id', $parentId)
-            ->where('user_id', $user->id)
-            ->where('parent_id', $this->comment->id)
-            ->get();
-
-        // Komen user lain
-        $otherComments = Comment::where('parent_id', $parentId)
-            ->where('user_id', '!=', $user->id)
-            ->where('parent_id', $this->comment->id)
-            ->get();
-
-        $this->replies = $myComments->concat($otherComments);
-
+        $this->getReplyData($parentId);
         $this->isReplying = !$this->isReplying;
     }
 
@@ -68,6 +59,14 @@ class CommentItem extends Component
 
         $this->replyContent = "";
 
+        $this->getReplyData($parentId);
+    }
+
+    // get reply data
+    public function getReplyData($parentId)
+    {
+        $user = Auth::user();
+
         // Komen user yang ter-authentikasi
         $myComments = Comment::where('parent_id', $parentId)
             ->where('user_id', $user->id)
@@ -79,8 +78,14 @@ class CommentItem extends Component
             ->where('user_id', '!=', $user->id)
             ->where('parent_id', $this->comment->id)
             ->get();
+        
+        if ($otherComments->count() > $this->replyDataLimit) {
+            $this->showLoadButton = true;
+        } else {
+            $this->showLoadButton = false;
+        }
 
-        $this->replies = $myComments->concat($otherComments);
+        $this->replies = $myComments->concat($otherComments->take($this->replyDataLimit));
     }
 
     // when btn vote clicked in the view
@@ -94,6 +99,12 @@ class CommentItem extends Component
     public function commentTotalVotes()
     {
         $this->calculateTotalVotes($this->comment);
+    }
+
+    public function loadMoreReply($parentId)
+    {
+        $this->replyDataLimit += 5;
+        $this->getReplyData($parentId);
     }
 
 

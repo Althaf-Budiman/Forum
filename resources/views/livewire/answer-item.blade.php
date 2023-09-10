@@ -14,10 +14,10 @@
                     <p class="leading-[48px]">
                         {{ $answer->votes()->where('vote_type', 'upvote')->count() -$answer->votes()->where('vote_type', 'downvote')->count() }}
                     </p>
-                    <button wire:click="answerAddVote('downvote')"
-                        class="{{ $answer->downvoteStatusIcon() }}"></button>
+                    <button wire:click="answerAddVote('downvote')" class="{{ $answer->downvoteStatusIcon() }}"></button>
 
-                    <button wire:click="loadComments()" class="bi bi-chat "> {{ $answer->comments()->where('parent_id', null)->count() }}</button>
+                    <button wire:click="openComments()" class="bi bi-chat ">
+                        {{ $answer->comments()->where('parent_id', null)->count() }}</button>
                 </div>
             </div>
 
@@ -46,6 +46,10 @@
                 @foreach ($comments as $comment)
                     @livewire('comment-item', ['comment' => $comment], key($comment->id))
                 @endforeach
+
+                @if ($showLoadButton)
+                    <button wire:click="loadMoreComments()" class="btn btn-primary">Load More</button>
+                @endif
             @endisset
         @endif
 

@@ -24,6 +24,12 @@ class AnswerItem extends Component
     // Model for input in view
     public $comment;
 
+    // limiting the comment data
+    public int $commentLimit = 5;
+
+    // condition to show load button or no
+    public bool $showLoadButton = false;
+
     public function mount(Answer $answer)
     {
         $this->answer = $answer;
@@ -45,25 +51,17 @@ class AnswerItem extends Component
         ]);
 
         $this->comment = "";
-        
-        // Komen user yang ter-authentikasi
-        $myComments = Comment::where('answer_id', $this->answer->id)
-            ->where('user_id', $user->id)
-            ->where('parent_id', null)
-            ->orderByDesc('total_votes')
-            ->get();
-
-        // Komen user lain
-        $otherComments = Comment::where('answer_id', $this->answer->id)
-            ->where('user_id', '!=', $user->id)
-            ->where('parent_id', null)
-            ->orderByDesc('total_votes')
-            ->get();
-
-        $this->comments = $myComments->concat($otherComments);
+        $this->getCommentData();
     }
 
-    public function loadComments()
+    public function openComments()
+    {
+        $this->getCommentData();
+        $this->isCommentOpen = !$this->isCommentOpen;
+    }
+
+    // get comment datas 
+    public function getCommentData()
     {
         $user = Auth::user();
 
@@ -81,8 +79,18 @@ class AnswerItem extends Component
             ->orderByDesc('total_votes')
             ->get();
 
-        $this->comments = $myComments->concat($otherComments);
-        $this->isCommentOpen = !$this->isCommentOpen;
+        if ($otherComments->count() > $this->commentLimit) {
+            $this->showLoadButton = true;
+        } else {
+            $this->showLoadButton = false;
+        }
+        
+        $this->comments = $myComments->concat($otherComments->take($this->commentLimit));
+    }
+
+    public function loadMoreComments() {
+        $this->commentLimit += 5;
+        $this->getCommentData();
     }
 
     // when btn vote clicked in the view
