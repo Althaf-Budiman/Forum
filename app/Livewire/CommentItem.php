@@ -36,14 +36,12 @@ class CommentItem extends Component
         $myComments = Comment::where('parent_id', $parentId)
             ->where('user_id', $user->id)
             ->where('parent_id', $this->comment->id)
-            ->orderByDesc('total_votes')
             ->get();
 
         // Komen user lain
         $otherComments = Comment::where('parent_id', $parentId)
             ->where('user_id', '!=', $user->id)
             ->where('parent_id', $this->comment->id)
-            ->orderByDesc('total_votes')
             ->get();
 
         $this->replies = $myComments->concat($otherComments);
@@ -74,14 +72,12 @@ class CommentItem extends Component
         $myComments = Comment::where('parent_id', $parentId)
             ->where('user_id', $user->id)
             ->where('parent_id', $this->comment->id)
-            ->orderByDesc('total_votes')
             ->get();
 
         // Komen user lain
         $otherComments = Comment::where('parent_id', $parentId)
             ->where('user_id', '!=', $user->id)
             ->where('parent_id', $this->comment->id)
-            ->orderByDesc('total_votes')
             ->get();
 
         $this->replies = $myComments->concat($otherComments);
