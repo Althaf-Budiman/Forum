@@ -19,6 +19,7 @@
         </div>
         <div class="navbar-end gap-6">
             <button class="bi bi-bell"></button>
+            <a href="{{ url('/bookmarks') }}" class="bi {{ request()->is('bookmarks') ? 'bi-bookmark-fill' : 'bi-bookmark' }}"></a>
             @guest
                 <a href="{{ url('/register') }}" class="btn btn-primary normal-case text-base">Register</a>
                 <a href="{{ url('/login') }}" class="btn btn-secondary btn-outline normal-case text-base">Login</a>
