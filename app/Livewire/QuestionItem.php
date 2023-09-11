@@ -12,12 +12,9 @@ class QuestionItem extends Component
 
     public $question;
 
-    public bool $isDetailPage;
-
-    public function mount(Question $question, bool $isDetailPage)
+    public function mount(Question $question)
     {
         $this->question = $question;
-        $this->isDetailPage = $isDetailPage;
     }
 
     // when btn vote clicked in the view
