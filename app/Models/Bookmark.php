@@ -21,9 +21,4 @@ class Bookmark extends Model
     {
         return $this->belongsTo(Question::class);
     }
-
-    public function answer(): BelongsTo
-    {
-        return $this->belongsTo(Answer::class);
-    }
 }

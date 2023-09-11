@@ -45,16 +45,6 @@ class Answer extends Model
     }
 
     /**
-     * Get all of the bookmarks for the Answer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function bookmarks(): HasMany
-    {
-        return $this->hasMany(Bookmark::class);
-    }
-
-    /**
      * Get all of the comments for the Answer
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -86,19 +76,6 @@ class Answer extends Model
             return 'bi bi-caret-down-fill';
         } else {
             return 'bi bi-caret-down';
-        }
-    }
-
-    // Fungsi untuk mengubah icon bookmark
-    public function bookmarkStatusIcon()
-    {
-        $user = Auth::user();
-
-        $bookmarked = $this->bookmarks()->where('user_id', $user->id)->first();
-        if ($bookmarked) {
-            return 'bi bi-bookmark-fill';
-        } else {
-            return 'bi bi-bookmark';
         }
     }
 }

@@ -20,12 +20,6 @@
                         {{ $answer->comments()->where('parent_id', null)->count() }}</button>
                 </div>
             </div>
-
-            {{-- Answer bookmarks --}}
-            <div class="flex gap-3">
-                <button wire:click="answerAddBookmark()" class="{{ $answer->bookmarkStatusIcon() }}"></button>
-            </div>
-
         </div>
 
         @if ($isCommentOpen)

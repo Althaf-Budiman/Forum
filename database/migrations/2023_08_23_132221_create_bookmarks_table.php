@@ -17,7 +17,6 @@ return new class extends Migration
             $table->enum('bookmark_status', ['empty', 'bookmark'])->default('empty');
             // Pilih salah satu (Opsional)
             $table->foreignId('question_id')->nullable()->constrained();
-            $table->foreignId('answer_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

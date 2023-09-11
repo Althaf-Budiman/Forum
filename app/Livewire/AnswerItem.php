@@ -106,12 +106,6 @@ class AnswerItem extends Component
         $this->calculateTotalVotes($this->answer);
     }
 
-    // when btn bookmark clicked in the view
-    public function answerAddBookmark()
-    {
-        $this->addBookmark($this->answer);
-    }
-
     public function render()
     {
         return view('livewire.answer-item');
