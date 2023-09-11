@@ -12,7 +12,7 @@
             <p class="leading-[48px] ml-3">{{ $comment->user->name }}</p>
         </div>
 
-        <div class="w-[40rem] ms-12">
+        <div class="ms-12">
             <p class="text-lg font-regular text-white">{{ $comment->comment }}</p>
         </div>
 
@@ -39,7 +39,7 @@
             @foreach ($replies as $reply)
                 @livewire('reply-item', ['reply' => $reply], key($reply->id))
             @endforeach
-            
+
             @if ($showLoadButton)
                 <button wire:click="loadMoreReply({{ $comment->id }})" class="btn btn-primary">Load More</button>
             @endif

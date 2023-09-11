@@ -26,5 +26,12 @@ class UserSeeder extends Seeder
             'password' => 'budiman123',
             'profile_photo_path' => 'profile-photos/default-profile-photo.png'
         ]);
+
+        User::create([
+            'name' => 'apakah',
+            'email' => 'apakah@gmail.com',
+            'password' => 'apakah123',
+            'profile_photo_path' => 'profile-photos/default-profile-photo.png'
+        ]);
     }
 }

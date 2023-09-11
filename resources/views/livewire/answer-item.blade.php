@@ -4,7 +4,7 @@
 
             {{-- Answer --}}
             <div class="flex flex-col">
-                <div class="w-80">
+                <div>
                     <p class="text-lg font-semibold text-white ">{{ $answer->answer }}</p>
                     <p>Answered by: <span class="font-semibold">{{ $answer->user->name }}</span></p>
                 </div>

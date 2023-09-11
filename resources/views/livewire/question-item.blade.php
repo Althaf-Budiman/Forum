@@ -15,9 +15,9 @@
 
         {{-- Question Title , Kategori  --}}
         <div class="flex flex-col">
-            <div class="w-80 @if (!$isDetailPage) whitespace-nowrap text-ellipsis overflow-hidden @endif">
+            <div class="w-80">
                 <a href='{{ url("/question/$question->id/detail") }}'
-                    class="text-lg font-semibold text-white underline leading-[48px]">{{ $question->title }}</a>
+                    class="text-lg font-semibold text-white underline">{{ $question->title }}</a>
             </div>
             <span class="badge">{{ $question->category }}</span>
         </div>
