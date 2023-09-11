@@ -17,7 +17,8 @@
         <div class="navbar-start">
             <a href="{{ url('/') }}" class="btn btn-ghost normal-case text-xl">Forum</a>
         </div>
-        <div class="navbar-end gap-2">
+        <div class="navbar-end gap-6">
+            <button class="bi bi-bell"></button>
             @guest
                 <a href="{{ url('/register') }}" class="btn btn-primary normal-case text-base">Register</a>
                 <a href="{{ url('/login') }}" class="btn btn-secondary btn-outline normal-case text-base">Login</a>
