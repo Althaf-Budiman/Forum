@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Answer;
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Traits\VoteAndBookmarkable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -50,6 +51,17 @@ class AnswerItem extends Component
             'comment' => $this->comment
         ]);
 
+        $answerOwnerId = $this->answer->user_id;
+
+        // Create notifications
+        // Check if the answer owner is not the user commenting then create notification
+        if ($answerOwnerId !== $user->id) {
+            Notification::create([
+                'user_id' => $answerOwnerId,
+                'message' => "$user->name Comment To Your Answer!"
+            ]);
+        }
+
         $this->comment = "";
         $this->getCommentData();
     }
@@ -84,11 +96,12 @@ class AnswerItem extends Component
         } else {
             $this->showLoadButton = false;
         }
-        
+
         $this->comments = $myComments->concat($otherComments->take($this->commentLimit));
     }
 
-    public function loadMoreComments() {
+    public function loadMoreComments()
+    {
         $this->commentLimit += 5;
         $this->getCommentData();
     }

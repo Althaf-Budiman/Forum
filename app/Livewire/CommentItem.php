@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Traits\VoteAndBookmarkable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -57,6 +58,17 @@ class CommentItem extends Component
             'comment' => $this->replyContent
         ]);
 
+        $commentOwnerId = $this->comment->user_id;
+
+        // Create notifications
+        // Check if the comment owner is not the user commenting then create notification
+        if ($commentOwnerId !== $user->id) {
+            Notification::create([
+                'user_id' => $commentOwnerId,
+                'message' => "$user->name Reply Your Comment"
+            ]);
+        }
+
         $this->replyContent = "";
 
         $this->getReplyData($parentId);
@@ -78,7 +90,7 @@ class CommentItem extends Component
             ->where('user_id', '!=', $user->id)
             ->where('parent_id', $this->comment->id)
             ->get();
-        
+
         if ($otherComments->count() > $this->replyDataLimit) {
             $this->showLoadButton = true;
         } else {

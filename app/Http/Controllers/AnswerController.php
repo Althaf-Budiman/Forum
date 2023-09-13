@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Notification;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,12 @@ class AnswerController extends Controller
             'user_id' => $user->id,
             'question_id' => $questionId,
             'answer' => $request->answer
+        ]);
+
+        // Create notifications
+        Notification::create([
+            'user_id' => $questionId,
+            'message' => "$user->name Answer Your Question!"
         ]);
 
         return back();
