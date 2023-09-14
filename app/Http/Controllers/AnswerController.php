@@ -31,10 +31,12 @@ class AnswerController extends Controller
             'answer' => $request->answer
         ]);
 
+        $questionOwner = Question::findOrFail($questionId)->user_id;
+
         // Create notifications
         Notification::create([
-            'user_id' => $questionId,
-            'message' => "$user->name Answer Your Question!"
+            'user_id' => $questionOwner, 
+            'message' => "$user->name answered the question: '' "
         ]);
 
         return back();
