@@ -51,14 +51,14 @@ class AnswerItem extends Component
             'comment' => $this->comment
         ]);
 
-        $answerOwnerId = $this->answer->user_id;
+        $answerOwner = $this->answer;
 
         // Create notifications
         // Check if the answer owner is not the user commenting then create notification
-        if ($answerOwnerId !== $user->id) {
+        if ($answerOwner->user_id !== $user->id) {
             Notification::create([
-                'user_id' => $answerOwnerId,
-                'message' => "$user->name Comment To Your Answer!"
+                'user_id' => $answerOwner->user_id,
+                'message' => "$user->name commented on the answer: '$answerOwner->answer'"
             ]);
         }
 

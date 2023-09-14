@@ -58,14 +58,14 @@ class CommentItem extends Component
             'comment' => $this->replyContent
         ]);
 
-        $commentOwnerId = $this->comment->user_id;
+        $commentOwner = $this->comment;
 
         // Create notifications
         // Check if the comment owner is not the user commenting then create notification
-        if ($commentOwnerId !== $user->id) {
+        if ($commentOwner->user_id !== $user->id) {
             Notification::create([
-                'user_id' => $commentOwnerId,
-                'message' => "$user->name Reply Your Comment"
+                'user_id' => $commentOwner->user_id,
+                'message' => "$user->name replied to the comment: '$commentOwner->comment' "
             ]);
         }
 
