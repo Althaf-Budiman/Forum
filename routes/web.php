@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [QuestionController::class, 'home'])->middleware('auth');
 
 // Authentication
-Route::controller(AuthenticationController::class)->group(function() {
+Route::controller(AuthenticationController::class)->group(function () {
     Route::get('/register', 'registerView');
     Route::get('/login', 'loginView')->name('login');
     Route::post('/register', 'register');
@@ -29,16 +29,19 @@ Route::controller(AuthenticationController::class)->group(function() {
     Route::post('/logout', 'logout');
 });
 
-// Question
-Route::post('/question', [QuestionController::class, 'store']);
+// should authenticate before accessing these route
+Route::middleware('auth')->group(function () {
+    // Question
+    Route::post('/question', [QuestionController::class, 'store']);
 
-// Answer
-Route::get('/question/{id}/detail', [AnswerController::class, 'detailQuestion']);
+    // Answer
+    Route::get('/question/{id}/detail', [AnswerController::class, 'detailQuestion']);
 
-Route::post('/answer/{questionId}', [AnswerController::class, 'store']);
+    Route::post('/answer/{questionId}', [AnswerController::class, 'store']);
 
-// Bookmark
-Route::get('/bookmarks', [BookmarkController::class, 'bookmarkView']);
+    // Bookmark
+    Route::get('/bookmarks', [BookmarkController::class, 'bookmarkView']);
 
-// Notification
-Route::get('/notifications', [NotificationController::class, 'notificationView']);
+    // Notification
+    Route::get('/notifications', [NotificationController::class, 'notificationView']);
+});
