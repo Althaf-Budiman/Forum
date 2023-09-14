@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,6 @@ Route::post('/answer/{questionId}', [AnswerController::class, 'store']);
 
 // Bookmark
 Route::get('/bookmarks', [BookmarkController::class, 'bookmarkView']);
+
+// Notification
+Route::get('/notifications', [NotificationController::class, 'notificationView']);
