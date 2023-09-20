@@ -37,6 +37,7 @@ class AnswerItem extends Component
 
         if ($isDetailPage) {
             $this->openComments();
+            $this->commentLimit = -1; // no limit
         }
     }
 

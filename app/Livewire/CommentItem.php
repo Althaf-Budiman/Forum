@@ -35,6 +35,7 @@ class CommentItem extends Component
         
         if ($isDetailPage) {
             $this->loadReply($this->comment->id);
+            $this->replyDataLimit = -1;
         }
     }
 
