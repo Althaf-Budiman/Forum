@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->integer('source_id'); // can be id answer, comment, or reply
+            $table->integer('model_id'); // for the question id actually
             $table->string('message');
+            $table->enum('type', ['answer', 'comment', 'reply-comment']);
             $table->boolean('read')->default(false);
             $table->dateTime('read_at')->nullable();
             $table->timestamps();

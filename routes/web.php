@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\DetailAnswerCommentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -31,17 +32,24 @@ Route::controller(AuthenticationController::class)->group(function () {
 
 // should authenticate before accessing these route
 Route::middleware('auth')->group(function () {
-    // Question
+    // Create Question
     Route::post('/question', [QuestionController::class, 'store']);
 
-    // Answer
+    // Detail Question
     Route::get('/question/{id}/detail', [AnswerController::class, 'detailQuestion']);
 
+    // Create Answer
     Route::post('/answer/{questionId}', [AnswerController::class, 'store']);
 
-    // Bookmark
+    // Detail Answer
+    Route::get('/answer/{id}/detail', [DetailAnswerCommentController::class, 'detailAnswer']);
+
+    // Detail Comment
+    Route::get('/comment/{id}/detail', [DetailAnswerCommentController::class, 'detailComment']);
+
+    // Bookmark List
     Route::get('/bookmarks', [BookmarkController::class, 'bookmarkView']);
 
-    // Notification
+    // Notification List
     Route::get('/notifications', [NotificationController::class, 'notificationView']);
 });

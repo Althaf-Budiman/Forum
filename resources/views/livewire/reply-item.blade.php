@@ -1,5 +1,5 @@
 {{-- Comment Content  --}}
-<div class="ms-8 mt-3 flex flex-col">
+<div class="ms-8 mt-3 flex flex-col" id="reply{{ $reply->id }}">
     <div class="flex">
         <div class="avatar">
             <div class="w-10 h-10 rounded-full">

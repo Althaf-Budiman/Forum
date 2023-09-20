@@ -20,7 +20,7 @@ class AnswerItem extends Component
     public $comments;
 
     // To set the view if the comment opened or no
-    public bool $isCommentOpen;
+    public bool $isCommentOpen = false;
 
     // Model for input in view
     public $comment;
@@ -31,10 +31,13 @@ class AnswerItem extends Component
     // condition to show load button or no
     public bool $showLoadButton = false;
 
-    public function mount(Answer $answer)
+    public function mount(Answer $answer, bool $isDetailPage = false)
     {
         $this->answer = $answer;
-        $this->isCommentOpen = false;
+
+        if ($isDetailPage) {
+            $this->openComments();
+        }
     }
 
     public function addComment()
@@ -45,7 +48,7 @@ class AnswerItem extends Component
             'comment' => 'required'
         ]);
 
-        Comment::create([
+        $newComment = Comment::create([
             'user_id' => $user->id,
             'answer_id' => $this->answer->id,
             'comment' => $this->comment
@@ -58,7 +61,10 @@ class AnswerItem extends Component
         if ($answerOwner->user_id !== $user->id) {
             Notification::create([
                 'user_id' => $answerOwner->user_id,
-                'message' => "$user->name commented on the answer: '$answerOwner->answer'"
+                'message' => "$user->name commented on the answer: '$answerOwner->answer'",
+                'type' => 'comment',
+                'model_id' => $answerOwner->id,
+                'source_id' => $newComment->id,
             ]);
         }
 

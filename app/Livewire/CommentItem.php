@@ -15,7 +15,7 @@ class CommentItem extends Component
     // used in the view foreach loop
     public $comment;
 
-    public bool $isReplying;
+    public bool $isReplying = false;
 
     // model reply in view
     public $replyContent;
@@ -29,10 +29,13 @@ class CommentItem extends Component
     // condition to show load button or no
     public $showLoadButton = false;
 
-    public function mount($comment)
+    public function mount($comment, bool $isDetailPage = false)
     {
         $this->comment = $comment;
-        $this->isReplying = false;
+        
+        if ($isDetailPage) {
+            $this->loadReply($this->comment->id);
+        }
     }
 
     public function loadReply($parentId)
@@ -51,7 +54,7 @@ class CommentItem extends Component
             'replyContent' => 'required'
         ]);
 
-        Comment::create([
+        $newReply = Comment::create([
             'user_id' => $user->id,
             'answer_id' => $targetComment->answer_id,
             'parent_id' => $parentId,
@@ -65,7 +68,10 @@ class CommentItem extends Component
         if ($commentOwner->user_id !== $user->id) {
             Notification::create([
                 'user_id' => $commentOwner->user_id,
-                'message' => "$user->name replied to the comment: '$commentOwner->comment' "
+                'message' => "$user->name replied to the comment: '$commentOwner->comment' ",
+                'type' => 'reply-comment',
+                'model_id' => $commentOwner->id,
+                'source_id' => $newReply->id,
             ]);
         }
 

@@ -25,7 +25,7 @@ class AnswerController extends Controller
             'answer' => 'required'
         ]);
 
-        Answer::create([
+        $newAnswer = Answer::create([
             'user_id' => $user->id,
             'question_id' => $questionId,
             'answer' => $request->answer
@@ -36,7 +36,10 @@ class AnswerController extends Controller
         // Create notifications
         Notification::create([
             'user_id' => $targetQuestion->user_id, 
-            'message' => "$user->name answered the question: '$targetQuestion->title' "
+            'message' => "$user->name answered the question: '$targetQuestion->title' ",
+            'type' => 'answer',
+            'source_id' => $newAnswer->id,
+            'model_id' => $newAnswer->question_id
         ]);
 
         return back();

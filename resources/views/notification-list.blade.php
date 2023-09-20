@@ -11,17 +11,29 @@
                 // check if is readed within 1 minutes
                 $isReadedWithin1Minutes = $notification->read_at == null || \Carbon\Carbon::parse($notification->read_at)->diffInSeconds(now()) <= 15;
                 $bgClass = $isReadedWithin1Minutes ? 'bg-slate-600' : 'bg-gray-700';
+                
+                // directTo
+                $directTo = '';
+                if ($notification->type === 'answer') {
+                    $directTo = "/question/$notification->model_id/detail#$notification->source_id";
+                } elseif ($notification->type === 'comment') {
+                    $directTo = "/answer/$notification->model_id/detail#comment$notification->source_id";
+                } elseif ($notification->type === 'reply-comment') {
+                    $directTo = "/comment/$notification->model_id/detail#reply$notification->source_id";
+                }
+                
             @endphp
-            <div class="flex w-8/12 mt-1 {{ $bgClass }}">
-                <div class="flex p-5">
-                    @if ($isReadedWithin1Minutes)
-                        <span class="rounded-full bg-cyan-300 text-transparent mr-2">.</span>
-                    @endif
-                    <a class="text-lg">
+
+            <a href='{{ url("$directTo") }}'>
+                <div class="flex mt-1 w-[60rem] text-lg {{ $bgClass }} hover:opacity-80">
+                    <div class="flex p-5">
+                        @if ($isReadedWithin1Minutes)
+                            <span class="rounded-full bg-cyan-300 text-transparent mr-2">.</span>
+                        @endif
                         {{ $notification->message }}
-                    </a>
+                    </div>
                 </div>
-            </div>
+            </a>
         @endforeach
     </div>
 @endsection

@@ -1,4 +1,4 @@
-<div class="flex w-full justify-between pr-8 mt-4 border-b-[0.1px]">
+<div class="flex w-full justify-between pr-8 mt-4 border-b-[0.1px] " id="comment{{ $comment->id }}">
 
     {{-- Comment Content  --}}
     <div class="flex flex-col">
