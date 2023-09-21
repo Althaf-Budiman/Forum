@@ -33,34 +33,28 @@ class CommentReplySeeder extends Seeder
         ]);
 
         Comment::create([
-            'user_id' => 1,
-            'answer_id' => 1,
-            'comment' => 'betul sih ini',
-        ]);
-
-        Comment::create([
-            'user_id' => 1,
-            'answer_id' => 2,
-            'comment' => 'baiklah...',
-        ]);
-
-        Comment::create([
             'user_id' => 2,
             'answer_id' => 3,
-            'comment' => 'Lebih bagus daripada yang kedua',
-        ]);
-
-        Comment::create([
-            'user_id' => 1,
-            'answer_id' => 4,
-            'comment' => 'BOX!',
+            'comment' => 'kureng',
         ]);
 
         Comment::create([
             'user_id' => 2,
             'answer_id' => 4,
-            'parent_id' => 7,
-            'comment' => 'BOX!'
+            'comment' => 'lumayan',
+        ]);
+
+        Comment::create([
+            'user_id' => 3,
+            'answer_id' => 4,
+            'parent_id' => 4,
+            'comment' => 'itu yang terbaik',
+        ]);
+
+        Comment::create([
+            'user_id' => 2,
+            'answer_id' => 6,
+            'comment' => 'nice tips',
         ]);
     }
 }

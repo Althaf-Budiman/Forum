@@ -2,7 +2,15 @@
 @section('main')
     <div class="flex flex-col items-center">
         <div class="flex w-8/12 bg-gray-700 p-3 mt-3 justify-between">
-            <h1 class="text-xl font-semibold text-white leading-[48px]">Hi, {{ Auth::user()->name }}!</h1>
+            <div>
+                <div class="avatar">
+                    <div class="w-10 h-10 rounded-full">
+                        <img class="w-full" src="{{ asset('storage/' . auth()->user()->profile_photo_path) }}"
+                            alt="user avatar questioner">
+                    </div>
+                    <h1 class="ml-3 text-xl font-semibold text-white leading-[48px]">Hi, {{ Auth::user()->name }}!</h1>
+                </div>
+            </div>
             <label for="modal_add_question" class="btn btn-primary">Ask Question</button>
         </div>
 
