@@ -39,12 +39,6 @@ class QuestionAnswerSeeder extends Seeder
             'category' => 'Umum'
         ]);
 
-        Question::create([
-            'user_id' => 1, // nawfal
-            'title' => 'Express Js vs Laravel',
-            'category' => 'Umum'
-        ]);
-
         /* ------------------------------
 
             Create the answer
