@@ -41,7 +41,7 @@ class AuthenticationController extends Controller
             'password' => $request->password,
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
     }

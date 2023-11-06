@@ -51,10 +51,6 @@ class CommentReplySeeder extends Seeder
             'comment' => 'itu yang terbaik',
         ]);
 
-        Comment::create([
-            'user_id' => 2,
-            'answer_id' => 6,
-            'comment' => 'nice tips',
-        ]);
+        
     }
 }

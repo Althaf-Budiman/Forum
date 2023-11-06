@@ -73,17 +73,5 @@ class QuestionAnswerSeeder extends Seeder
             'question_id' => 3, // apakah pemilik question
             'answer' => 'stay psg'
         ]);
-
-        Answer::create([
-            'user_id' => 1, // nawfal pemilik answer
-            'question_id' => 4, // budiman pemilik question
-            'answer' => 'Pistol Squat best compound leg exercise. Tips: pegang beban di depan biar lebih gampang balancenya.'
-        ]);
-
-        Answer::create([
-            'user_id' => 3, // apakah pemilik answer
-            'question_id' => 4, // budiman pemilik question
-            'answer' => 'Sissy Squat untuk quadricep, dan nordic hamstring curl untuk hamstring untuk menjadi atlet terbaik'
-        ]);
     }
 }
